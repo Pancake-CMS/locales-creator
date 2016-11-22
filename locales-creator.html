@@ -1,7 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../polymerfire/firebase-document.html">
 
 <dom-module id="locales-creator">
     <template>
@@ -19,7 +18,6 @@
         </style>
         <paper-input label="New Locale" value="{{value}}"></paper-input>
         <paper-button on-click="addLocale">Add Locale</paper-button>
-        <firebase-document></firebase-document>
     </template>
     <script>
         Polymer({
@@ -29,25 +27,24 @@
                 value: {
                     type: String,
                     value: ''
+                },
+                locales: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
                 }
             },
 
             addLocale: function() {
-                var data = this.$$('firebase-document').getStoredValue('/locales/'),
-                    length = data.length;
-                for(var i=0; i < data.length; i++) {
-                    if(data[i] == this.value) {
+                for(var i=0; i < this.locales.length; i++) {
+                    if(this.locales[i] == this.value) {
                         this.value = '';
                         return
                     }
                 }
 
-                if(!length) {
-                    length = 0;
-                }
-
-                data[length] = this.value
-                this.$$('firebase-document').setStoredValue('/locales/', data);
+                this.push('locales', this.value);
+                this.value = '';
             }
         });
     </script>
