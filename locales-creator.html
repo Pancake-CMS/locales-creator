@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+
+<dom-module id="locales-creator">
+    <template>
+        <style>
+            :host {
+                display: block;
+                @apply(--layout-horizontal);
+            }
+            paper-input {
+                @apply(--layout-flex-8);
+            }
+            paper-button {
+                @apply(--layout-flex-2);
+            }
+        </style>
+        <paper-input label="New Locale" value="{{value}}"></paper-input>
+        <paper-button on-click="addLocale">Add Locale</paper-button>
+        <firebase-document></firebase-document>
+    </template>
+    <script>
+        Polymer({
+            is: 'locales-creator',
+
+            properties: {
+                value: {
+                    type: String,
+                    value: ''
+                }
+            },
+
+            addLocale: function() {
+                this.$$('firebase-document').setStoredValue('/locales/' + value, value);
+            }
+        });
+    </script>
+</dom-module>
