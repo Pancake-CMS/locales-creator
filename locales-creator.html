@@ -33,7 +33,21 @@
             },
 
             addLocale: function() {
-                this.$$('firebase-document').setStoredValue('/locales/' + this.value, this.value);
+                var data = this.$$('firebase-document').getStoredValue('/locales/'),
+                    length = data.length;
+                for(var i=0; i < data.length; i++) {
+                    if(data[i] == this.value) {
+                        this.value = '';
+                        return
+                    }
+                }
+
+                if(!length) {
+                    length = 0;
+                }
+
+                data[length] = this.value
+                this.$$('firebase-document').setStoredValue('/locales/', data);
             }
         });
     </script>
