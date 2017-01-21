@@ -8,16 +8,18 @@
             :host {
                 display: block;
                 @apply(--layout-horizontal);
+                padding: 20px 0;
             }
             paper-input {
                 @apply(--layout-flex-8);
             }
             paper-button {
                 @apply(--layout-flex-2);
+                margin: 0 0 0 15px;
             }
         </style>
         <paper-input label="New Locale" value="{{value}}"></paper-input>
-        <paper-button on-click="addLocale">Add Locale</paper-button>
+        <paper-button on-click="addLocale" raised>Add Locale</paper-button>
     </template>
     <script>
         Polymer({
