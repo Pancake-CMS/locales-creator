@@ -33,18 +33,22 @@
                 locales: {
                     type: Array,
                     notify: true,
-                    reflectToAttribute: true
+                    reflectToAttribute: true,
+                    value: []
                 }
             },
 
             addLocale: function() {
+                if(!this.locales.length) {
+                    this.set('locales', []);
+                }
+
                 for(var i=0; i < this.locales.length; i++) {
                     if(this.locales[i] == this.value) {
                         this.value = '';
                         return
                     }
                 }
-
                 this.push('locales', this.value);
                 this.value = '';
             }
